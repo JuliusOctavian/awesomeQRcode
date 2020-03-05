@@ -20,13 +20,8 @@
 	browser.tabs.query({active:true,currentWindow:true})
 	.then(function (tabs) {
 		browser.runtime.sendMessage({greeting:"Hehe"}).then(res=>{
-			if (!res.text) {
-				input.value = tabs[0].url;
-				qrcode.makeCode(input.value);
-			}else {
-				input.value = res.text;
-				qrcode.makeCode(input.value);
-			}
+			input.value = res.text?res.text:tabs[0].url;
+			qrcode.makeCode(input.value);
 		}).catch(error=>{console.log(error)})
 	})
 	.catch((error) =>{
